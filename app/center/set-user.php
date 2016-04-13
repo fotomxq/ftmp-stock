@@ -21,9 +21,9 @@ require(DIR_PAGE . DS . 'plug-message.php');
 $status = isset($_GET['status']) ? $_GET['status'] : null;
 ?>
 <div class="ui main container">
-    <div class="ui huge header">用户设置</div>
+    <div class="ui huge inverted grey header"><i class="icon user"></i> 用户设置</div>
     <?php echo PlugMessage($status, $messageSet); ?>
-    <form class="ui form" method="post" action="action-set-user.php">
+    <form class="ui inverted form" method="post" action="action-set-user.php">
         <div class="field">
             <label>昵称</label>
             <input type="text" name="new-nicename" placeholder="新的昵称" value="<?php echo $userData['user_nicename']; ?>">

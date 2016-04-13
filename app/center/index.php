@@ -8,7 +8,7 @@
 //引用全局文件
 require('glob.php');
 //如果已经登录则进入中心首页
-if($user->logged($ipAddress)){
+if ($user->logged($ipAddress)) {
     CoreHeader::toURL('center.php');
 }
 //定义页面变量
@@ -22,9 +22,9 @@ require(DIR_PAGE . DS . 'page-header.php');
 $status = isset($_GET['status']) ? $_GET['status'] : 'none';
 $statusTitle = '登录失败';
 $statusType = 'negative';
-if(isset($_GET['status'])){
+if (isset($_GET['status'])) {
     $statusMessage = '';
-    switch($_GET['status']){
+    switch ($_GET['status']) {
         case 'logout':
             $statusType = 'success';
             $statusTitle = '成功';
@@ -47,12 +47,12 @@ if(isset($_GET['status'])){
         default:
             $statusMessage = '';
     }
-?>
-<div class="ui <?php echo $statusType; ?> message">
-    <div class="header"><?php echo $statusTitle; ?></div>
-    <p><?php echo $statusMessage; ?></p>
-</div>
-<?php
+    ?>
+    <div class="ui <?php echo $statusType; ?> message">
+        <div class="header"><?php echo $statusTitle; ?></div>
+        <p><?php echo $statusMessage; ?></p>
+    </div>
+    <?php
 }
 ?>
 
@@ -78,20 +78,20 @@ if(isset($_GET['status'])){
                         <input type="password" name="password" placeholder="密码">
                     </div>
                 </div>
-                <?php if($loginVcodeBool === '1') { ?>
-                <div class="field">
-                    <div class="two fields">
-                        <div class="field">
-                            <div class="ui left icon input">
-                                <i class="spy icon"></i>
-                                <input type="text" name="vcode" placeholder="验证码">
+                <?php if ($loginVcodeBool === '1') { ?>
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="spy icon"></i>
+                                    <input type="text" name="vcode" placeholder="验证码">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <img src="vcode.php">
                             </div>
                         </div>
-                        <div class="field">
-                            <img src="vcode.php">
-                        </div>
                     </div>
-                </div>
                 <?php } ?>
                 <div class="ui fluid large teal submit button">登录</div>
             </div>

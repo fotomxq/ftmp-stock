@@ -38,7 +38,7 @@ $(document).ready(function () {
         }
     });
     //提交表单处理加密
-    $('form').submit(function(){
+    $('form').submit(function () {
         $('input[name="password"]').val(hex_sha1($('input[name="password"]').val()));
     });
 });

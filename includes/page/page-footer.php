@@ -18,6 +18,8 @@ if(!isset($pageSets)){
 <div class="ui inverted vertical footer segment"></div>
   <script src="../assets/js/jquery.js"></script>
   <script src="../assets/js/semantic.js"></script>
+  <script src="../assets/js/echarts.js"></script>
+  <script src="../assets/js/glob.js"></script>
   <?php if(isset($pageSets['glob-js'])){ foreach($pageSets['glob-js'] as $v){ ?>
   <script src="../assets/js/<?php echo $v; ?>"></script>
   <?php } } ?>

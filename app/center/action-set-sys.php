@@ -3,7 +3,7 @@
 /**
  * 系统设置页面处理
  * @author liuzilu <fotomxq@gmail.com>
- * @version 1
+ * @version 2
  * @package center
  */
 //引用全局
@@ -63,6 +63,15 @@ switch ($_GET['action']) {
                 $status = 'del-success';
             }
         }
+        break;
+    case 'data-uploadfile':
+        //上传数据类文件
+        //确保token相同
+        $token = PlugToken($pageSetSysTokenVar, date('Ymd'), $pageSetSysTokenLen);
+        if (isset($_GET['token']) && $token === $_GET['token']) {
+            die('1');
+        }
+        die('提交超时，请刷新页面。');
         break;
 }
 //跳转页面

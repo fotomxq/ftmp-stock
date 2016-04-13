@@ -22,8 +22,8 @@ $(function () {
         userPowerKeyStr = $(this).parent().attr('data-powers');
         userPowerKeys = userPowerKeyStr.split('|');
         $('input[name="edit-powers[]"]').removeAttr('checked');
-        for(var i=0;i<userPowerKeys.length;i++){
-            $('input[data-id="edit-power-'+userPowerKeys[i]+'"]').parent().checkbox('check');
+        for (var i = 0; i < userPowerKeys.length; i++) {
+            $('input[data-id="edit-power-' + userPowerKeys[i] + '"]').parent().checkbox('check');
         }
         nowOperateUserID = $(this).parent().attr('data-id');
         $('input[name="edit-user-id"]').val(nowOperateUserID);
@@ -47,5 +47,24 @@ $(function () {
     });
     $('#ok-del-user').click(function () {
         window.location.href = 'action-set-sys.php?action=user-del&id=' + nowOperateUserID;
+    });
+    //数据文件上传框架初始化
+    $('#data-uploadfile').uploadify({
+        height: 30,
+        width: 120,
+        swf: '../assets/swf/uploadify.swf',
+        uploader: '../../center/action-set-sys.php?action=data-uploadfile',
+        buttonText: '选择本地文件',
+        auto: false,
+        uploadLimit: 1,
+        itemTemplate: '<div id="${fileID}" class="uploadify-queue-item">\<div class="cancel">\</div>\<span class="fileName">${fileName} (${fileSize})</span><span class="data"></span>\</div>'
+    });
+    //单击数据文件上传按钮
+    $('a[href="#data-upload-ok"]').click(function () {
+        var type = $('#data-upload-type').val();
+        var token = $(this).parent().attr('token');
+        var url = '../../center/action-set-sys.php?action=data-uploadfile&type=' + type + '&token=' + token;
+        $('#data-uploadfile').uploadify('settings', 'uploader', url);
+        $('#data-uploadfile').uploadify('upload', '*');
     });
 });

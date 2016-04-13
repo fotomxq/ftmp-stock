@@ -10,9 +10,11 @@ require('glob-logged.php');
 //检查权限
 PlugCheckUserPower($userPowerBool, 'admin');
 //定义页面变量
-$pageSets['header-title'] = $webTitle . ' - 用户设置';
+$pageSets['header-title'] = $webTitle . ' - 系统设定';
 $pageSets['header-css'] = array('center.css');
 $pageSets['footer-js'] = array('set-sys.js');
+$pageSets['glob-js'] = array('jquery.uploadify.js');
+$pageSets['glob-css'] = array('uploadify.css');
 //引用头文件
 require(DIR_PAGE . DS . 'page-header.php');
 //引用菜单文件
@@ -45,7 +47,7 @@ foreach ($appList as $v) {
 ?>
 <div class="ui main container">
     <?php echo PlugMessage($status, $messageSet); ?>
-    <div class="ui huge dividing header">系统设置</div>
+    <div class="ui huge inverted grey dividing header"><i class="icon options"></i> 系统设置</div>
     <form class="ui form" method="post" action="action-set-sys.php?action=set-sys-basic">
         <div class="field">
             <label>用户登录限时 (s)</label>
@@ -59,13 +61,13 @@ foreach ($appList as $v) {
                 </div>
             </div>
         </div>
-        <button class="ui button" type="submit">保存设定</button>
+        <button class="ui button" type="submit"><i class="icon save"></i> 保存设定</button>
     </form>
-    <div class="ui huge dividing header">用户列表</div>
-    <table class="ui compact celled definition table">
+    <div class="ui huge inverted grey dividing header"><i class="icon users"></i> 用户列表</div>
+    <table class="ui inverted compact celled definition table">
         <thead>
             <tr>
-                <th></th>
+                <th>ID</th>
                 <th>昵称</th>
                 <th>用户名</th>
                 <th>登录时间</th>
@@ -104,14 +106,41 @@ foreach ($appList as $v) {
         <tfoot class="full-width">
             <tr>
                 <th></th>
-                <th colspan="4">
+                <th colspan="5">
                     <div class="ui right floated small primary labeled icon button" id="show-add-modal">
                         <i class="add user icon"></i> 添加用户
                     </div>
                 </th>
             </tr>
-        </tfoot>
+            </tfoot>
     </table>
+    <div class="ui huge inverted grey dividing header"><i class="icon upload"></i> 提供数据</div>
+    <div class="ui message">
+        <div class="header">请注意</div>
+        <p>系统一般会自动采集数据，但存在不完整性，所以可以手动导入数据补充。相同数据将混合呈现。</p>
+    </div>
+    <div class="ui inverted form" token="<?php echo PlugToken($pageSetSysTokenVar, date('Ymd'), $pageSetSysTokenLen); ?>">
+        <div class="fields">
+            <div class="field">
+                <label>来源</label>
+                <select class="ui dropdown" id="data-upload-type">
+                    <option value="1">东方财富客户端</option>
+                    <option value="2">Choice</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>选择文件</label>
+                <div id="data-uploadfile"></div>
+            </div>
+        </div>
+        <a class="ui button" href="#data-upload-ok"><i class="icon upload"></i> 上传数据</a>
+    </div>
+    <div class="ui huge inverted grey dividing header"><i class="icon cloud"></i> 自动采集系统</div>
+    <div class="ui message">
+        <div class="header">工作情况</div>
+        <p>采集系统正在运行中...</p>
+    </div>
+    <a class="ui button" href="#data-auto-run-or-stop"><i class="icon cloud"></i> 开始采集数据</a>
 </div>
 
 <div class="ui basic modal" id="del-modal">

@@ -3,7 +3,7 @@
 /**
  * 全局引用
  * @author liuzilu <fotomxq@gmail.com>
- * @version 2
+ * @version 3
  * @package center
  */
 //全局配置文件
@@ -35,4 +35,9 @@ $filter = new CoreFilter();
 //缓冲器
 require(DIR_LIB . DS . 'core-cache.php');
 $cache = new CoreCache(CACHE_ON, CACHE_LIMIT_TIME, CACHE_DIR);
+//token计算工具
+require(DIR_LIB . DS . 'plug-token.php');
+//系统设定的token编码
+$pageSetSysTokenVar = 'ftmp-stock-set-sys_20160413';
+$pageSetSysTokenLen = 6;
 ?>
