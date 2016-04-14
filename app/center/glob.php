@@ -39,5 +39,8 @@ $cache = new CoreCache(CACHE_ON, CACHE_LIMIT_TIME, CACHE_DIR);
 require(DIR_LIB . DS . 'plug-token.php');
 //系统设定的token编码
 $pageSetSysTokenVar = 'ftmp-stock-set-sys_20160413';
-$pageSetSysTokenLen = 6;
+$pageSetSysTokenLen = 10;
+//用户设定的token编码
+$pageSetUserTokenVar = 'ftmp-stock-set-user_20160414';
+$pageSetUserTokenLen = 10;
 ?>

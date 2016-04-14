@@ -27,3 +27,9 @@ body {
     width:350px;
     height:150px;
 }
+.ui.header{
+    padding-top: 60px;
+}
+.ui.header:first-child{
+    padding-top: 0px;
+}
