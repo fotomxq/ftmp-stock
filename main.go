@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ ":/Go/src/ftmp-stock/routers"
+	_ "ftmpstock/routers"
 	"github.com/astaxie/beego"
 )
 

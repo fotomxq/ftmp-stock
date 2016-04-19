@@ -1,7 +1,7 @@
 package routers
 
 import (
-	":/Go/src/ftmp-stock/controllers"
+	"ftmpstock/controllers"
 	"github.com/astaxie/beego"
 )
 
