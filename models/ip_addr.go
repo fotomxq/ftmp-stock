@@ -1,53 +1,31 @@
-package main
+//获取IP地址模块
+package models
 
 import (
-	"flag"
-	"fmt"
-	"io"
 	"net"
-	"net/http"
-	"os"
 )
 
-var get_ip = flag.String("get_ip", "", "external|internal")
-
-func main() {
-	fmt.Println("Usage of ./getmyip --get_ip=(external|internal)")
-	flag.Parse()
-	if *get_ip == "external" {
-		get_external()
-	}
-
-	if *get_ip == "internal" {
-		get_internal()
-	}
-
-}
-
-func get_external() {
-	resp, err := http.Get("http://myexternalip.com/raw")
+func IpAddrGetExternal() string {
+	var url string = "http://myexternalip.com/raw"
+	html, err := GetUrl(url)
 	if err != nil {
-		os.Stderr.WriteString(err.Error())
-		os.Stderr.WriteString("\n")
-		os.Exit(1)
+		return "0.0.0.0"
 	}
-	defer resp.Body.Close()
-	io.Copy(os.Stdout, resp.Body)
-	os.Exit(0)
+	return html
 }
 
-func get_internal() {
+//获取本机IP地址
+func IpAddrGetInternal() string {
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
-		os.Stderr.WriteString("Oops:" + err.Error())
-		os.Exit(1)
+		return "0.0.0.0"
 	}
 	for _, a := range addrs {
 		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
 			if ipnet.IP.To4() != nil {
-				os.Stdout.WriteString(ipnet.IP.String() + "\n")
+				return ipnet.IP.String()
 			}
 		}
 	}
-	os.Exit(0)
+	return "0.0.0.0"
 }
