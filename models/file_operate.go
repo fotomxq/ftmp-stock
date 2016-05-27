@@ -2,15 +2,11 @@
 package models
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
-	"strings"
 )
 
 func init() {
-	src := "c:/c.txt"
-	fmt.Println(ReadFile(src))
 }
 
 //创建目录
@@ -36,15 +32,9 @@ func ReadFile(src string) string {
 
 //写入文件
 func WriteFile(src string, content string) bool {
-	read := strings.NewReader(content)
-	newC, errNewC := read.ReadByte()
-	if errNewC != nil {
-		panic(errNewC)
-		return false
-	}
-	errWriteFile := ioutil.WriteFile(src, newC)
-	if errWriteFile != nil {
-		panic(errWriteFile)
+	err := ioutil.WriteFile(src, ([]byte)(content), os.ModeAppend)
+	if err != nil {
+		panic(err)
 		return false
 	}
 	return true
@@ -52,11 +42,19 @@ func WriteFile(src string, content string) bool {
 
 //修改文件名称
 func EditFileName(src string, newName string) bool {
+	err := os.Rename(src, newName)
+	if err != nil {
+		return true
+	}
 	return false
 }
 
 //删除文件或文件夹
 func DeleteFile(src string) bool {
+	err := os.Remove(src)
+	if err != nil {
+		return true
+	}
 	return false
 }
 
@@ -83,4 +81,9 @@ func GetFileSize(src string) int {
 //获取文件夹的大小
 func GetFolderSize(src string) int {
 	return 0
+}
+
+//获取文件信息
+func GetFileInfo(src string) bool {
+
 }
