@@ -6,12 +6,17 @@ import (
 	"os"
 )
 
-func init() {
+//文件类结构
+type fileOperate struct{
 }
 
 //创建目录
-func CreateDir(src string, name string) bool {
-	return false
+func (this *fileOperate) CreateDir(src string) bool {
+	err := os.MkdirAll(src,os.ModePerm)
+	if err != nil{
+		return false
+	}
+	return true
 }
 
 //读取文件
@@ -31,7 +36,7 @@ func ReadFile(src string) string {
 }
 
 //写入文件
-func WriteFile(src string, content string) bool {
+func (this *fileOperate) WriteFile(src string, content string) bool {
 	err := ioutil.WriteFile(src, ([]byte)(content), os.ModeAppend)
 	if err != nil {
 		panic(err)
@@ -41,7 +46,7 @@ func WriteFile(src string, content string) bool {
 }
 
 //修改文件名称
-func EditFileName(src string, newName string) bool {
+func (this *fileOperate) EditFileName(src string, newName string) bool {
 	err := os.Rename(src, newName)
 	if err != nil {
 		return true
@@ -50,40 +55,56 @@ func EditFileName(src string, newName string) bool {
 }
 
 //删除文件或文件夹
-func DeleteFile(src string) bool {
-	err := os.Remove(src)
+func (this *fileOperate) DeleteFile(src string) bool {
+	err := os.RemoveAll(src)
 	if err != nil {
 		return true
 	}
 	return false
 }
 
+//判断路径是否存在
+func (this *fileOperate) IsExist(src string) bool{
+	_, err := os.Stat(src)
+	return err == nil || os.IsExist(err)
+}
+
 //判断是否为文件
-func IsFile(src string) bool {
-	return false
+func (this *fileOperate) IsFile(src string) bool {
+	info, err := os.Stat(src)
+	if err != nil{
+		panic(err)
+		return false
+	}
+	return !info.IsDir()
 }
 
 //判断是否为文件夹
-func IsFolder(src string) bool {
-	return false
+func (this *fileOperate) IsFolder(src string) bool {
+	info, err := os.Stat(src)
+	if err != nil{
+		panic(err)
+		return false
+	}
+	return info.IsDir()
 }
 
 //获取子文件列表
-func GetFileList(src string) string {
+func (this *fileOperate) GetFileList(src string) string {
 	return ""
 }
 
 //获取文件的大小
-func GetFileSize(src string) int {
-	return 0
-}
-
-//获取文件夹的大小
-func GetFolderSize(src string) int {
-	return 0
+func (this *fileOperate) GetFileSize(src string) int64 {
+	info, err := os.Stat(src)
+	if err != nil{
+		return 0
+	}
+	return info.Size()
 }
 
 //获取文件信息
-func GetFileInfo(src string) bool {
-	return false
+func (this *fileOperate) GetFileInfo(src string) (os.FileInfo ,error) {
+	info, err := os.Stat(src)
+	return info,err
 }
