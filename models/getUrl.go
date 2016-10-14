@@ -4,6 +4,7 @@ package models
 import (
 	"io/ioutil"
 	"net/http"
+    "net/url"
 )
 
 func GetUrl(url string) (string, error) {
