@@ -12,7 +12,7 @@ type fileOperate struct{
 
 //创建新的文件夹
 //支持多级创建
-func (this *fileOperate) CreateDir()(src string) {
+func (this *fileOperate) CreateDir(src string) bool {
 	err := os.MkdirAll(src,os.ModePerm)
 	if err != nil{
 		return false
@@ -21,7 +21,7 @@ func (this *fileOperate) CreateDir()(src string) {
 }
 
 //读取文件
-func (this *fileOperate) ReadFile(res []byte)(src string){
+func (this *fileOperate) ReadFile(src string) []byte{
 	file, err := os.Open(src)
 	if err != nil {
 		return nil

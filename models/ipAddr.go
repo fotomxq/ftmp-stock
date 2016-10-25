@@ -3,15 +3,26 @@ package models
 
 import (
 	"net"
+	"io/ioutil"
+	"net/http"
 )
 
-func IpAddrGetExternal() string {
+func IpAddrGetExternal() (res string,err error) {
 	var url string = "http://myexternalip.com/raw"
-	html, err := GetUrl(url)
+	resp, err := http.Get(url)
 	if err != nil {
-		return "0.0.0.0"
+		return "0.0.0.0", err
 	}
-	return html
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "0.0.0.0", err
+	}
+	html, err := string(body), nil
+	if err != nil {
+		return "0.0.0.0", err
+	}
+	return html,nil
 }
 
 //获取本机IP地址
