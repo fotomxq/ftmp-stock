@@ -1,4 +1,4 @@
-package models
+package main
 import (
     "io/ioutil"
     "net/http"
