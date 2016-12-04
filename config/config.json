@@ -1,0 +1,9 @@
+{
+    "database-type": "sqlite3",
+    "database-dns" : "",
+    "login-timeout" : "3600",
+    "coll-autoRunHour": "0",
+    "server-local": ":8888",
+    "language" : "chinese",
+    "debug" : "true"
+}
